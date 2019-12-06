@@ -1,1 +1,3 @@
-# exact_diagonalization_central_charge
+# calculate central charge by exact diagonalization
+
+* 1D Heisenberg model
