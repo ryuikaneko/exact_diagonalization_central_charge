@@ -1,0 +1,8 @@
+- energy
+ - not sorted
+ - multiplied by 4 (H = \sum_{a=x,y,z} sigma^a.sigma^a type, not H = \sum_{a=x,y,z} S^a.S^a)
+
+- memory and time
+ - L30 ~15GB ~10min
+ - L32 ~40GB ~30min 
+ - L34_no_matrix ~30GB ~48hours

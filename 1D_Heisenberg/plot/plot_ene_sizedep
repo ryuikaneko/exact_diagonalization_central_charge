@@ -1,0 +1,22 @@
+## E: GS of \sum S.S
+## E/4: GS of \sum sigma.sigma --> E/4=1/4-ln2
+
+set term png
+set output "fig_ene_sizedep.png"
+
+set xlabel "1/L^2"
+set ylabel "E/4"
+set key bottom at graph 0.8,0.05
+
+set xrange [0:]
+
+Eexact=0.25-log(2.0)
+c=1
+v=pi/2
+coeff=pi/6
+
+p \
+"< grep 'L k energy:' ../dat/dat_L* | sed 's/.*L k energy://g' | awk '$1%4==0&&$2==0{print $0}' | sort -g -k 1" u (1/$1**2):($3/$1/4.0) w p ti "L=4n", \
+"< grep 'L k energy:' ../dat/dat_L* | sed 's/.*L k energy://g' | awk '$1%4==2&&$2==$1/2{print $0}' | sort -g -k 1" u (1/$1**2):($3/$1/4.0) w p ti "L=4n+2", \
+Eexact, \
+Eexact-x*c*v*coeff w l ti "E-c*v*coeff/L^2 (c=1,v=pi/2,coeff=pi/6)"

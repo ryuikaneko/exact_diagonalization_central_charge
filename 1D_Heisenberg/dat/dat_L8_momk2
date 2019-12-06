@@ -1,0 +1,20 @@
+# make basis: sector of twosz= 0
+# L= 8 , nup= 4 twosz = 0 , momk= 2 , Nrep= 9
+# show first and last bases
+# ind state_num state_bit period_R period_sqrtR
+0 15 00001111 8 2.8284271247461903
+8 53 00110101 8 2.8284271247461903
+# time: 0.394119977951
+
+# make interactions
+list_site1= [0 1 2 3 4 5 6 7]
+list_site2= [1 2 3 4 5 6 7 0]
+# time: 0.00023889541626
+
+# make Hamiltonian
+# time: 0.580374002457
+
+# diag Hamiltonian
+L k energy: 8 2 -7.418550718873837 -6.4721359549995965 -5.068140393445467 -2.387873132949261 -1.03460809001661
+# time: 0.000788927078247
+
