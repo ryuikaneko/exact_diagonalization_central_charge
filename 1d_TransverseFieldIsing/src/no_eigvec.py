@@ -131,14 +131,18 @@ def calc_exp(L,momk):
 
 @jit(nopython=True)
 def make_hamiltonian_child(Nbond,list_site1,list_site2,Nrep,list_state,list_sqrtR,L,momk,expk):
-    listki = np.array([i for k in range(Nbond+1) for i in range(Nrep)],dtype=np.int64)
-    loc = np.zeros((Nbond+1)*Nrep,dtype=np.int64)
-    elemnt = np.zeros((Nbond+1)*Nrep,dtype=np.complex128)
+#
+#---- FM TFIsing model (spin: \sigma)
+## sx.sx + sy.sy: #elements = Nrep*Nbond (not used in TFIsing)
+## sz.sz:         #elements = Nrep*1 (diagonal elements)
+## sx:            #elements = Nrep*L
+##
+    listki = np.array([i for k in range(Nbond+1+L) for i in range(Nrep)],dtype=np.int64)
+    loc = np.zeros((Nbond+1+L)*Nrep,dtype=np.int64)
+    elemnt = np.zeros((Nbond+1+L)*Nrep,dtype=np.complex128)
 #    Ham = np.zeros((Nrep,Nrep),dtype=complex)
     for a in range(Nrep):
         sa = list_state[a]
-#
-#---- FM TFIsing model (spin: \sigma)
         for i in range(Nbond): ## Ising (- \sigma^z \sigma^z)
             i1 = list_site1[i]
             i2 = list_site2[i]
@@ -155,11 +159,17 @@ def make_hamiltonian_child(Nbond,list_site1,list_site2,Nrep,list_state,list_sqrt
             b = find_state_2(sb,list_state,Nrep)
             if b>=0:
 #                Ham[a,b] -= list_sqrtR[a]/list_sqrtR[b]*expk[exponent]
-                elemnt[i*Nrep+a] -= list_sqrtR[a]/list_sqrtR[b]*expk[exponent]
-                loc[i*Nrep+a] = b
+                elemnt[(Nbond+1+i)*Nrep+a] -= list_sqrtR[a]/list_sqrtR[b]*expk[exponent]
+                loc[(Nbond+1+i)*Nrep+a] = b
 #---- end of FM TFIsing model (spin: \sigma)
 #
 ##---- AF Heisenberg model (spin: S = \sigma / 2)
+#    listki = np.array([i for k in range(Nbond+1) for i in range(Nrep)],dtype=np.int64)
+#    loc = np.zeros((Nbond+1)*Nrep,dtype=np.int64)
+#    elemnt = np.zeros((Nbond+1)*Nrep,dtype=np.complex128)
+##    Ham = np.zeros((Nrep,Nrep),dtype=complex)
+#    for a in range(Nrep):
+#        sa = list_state[a]
 #        for i in range(Nbond):
 #            i1 = list_site1[i]
 #            i2 = list_site2[i]
