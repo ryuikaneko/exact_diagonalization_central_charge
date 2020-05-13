@@ -1,0 +1,21 @@
+# make basis: sz not conserved
+# L= 21 , momk= 0 , Nrep= 99880
+# show first and last bases
+# ind state_num state_bit period_R period_sqrtR
+0 0 000000000000000000000 1 1.0
+99879 2097151 111111111111111111111 1 1.0
+# time: 0.3077888488769531
+
+# make interactions
+list_site1= [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20]
+list_site2= [ 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20  0]
+# time: 0.000209808349609375
+
+# make Hamiltonian
+# time: 0.8582949638366699
+
+# diag Hamiltonian
+# Nrep >= 100: use scipy.sparse.linalg.eigsh
+L k energy: 21 0 -26.762979999309476 -26.68814527919547
+# time: 2.8591434955596924
+

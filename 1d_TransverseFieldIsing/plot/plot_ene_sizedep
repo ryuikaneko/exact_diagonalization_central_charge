@@ -1,0 +1,21 @@
+## E: GS of \sum - Sz.Sz - H.Sx (H=1/2)
+## E=e/4, e: GS of \sum - sigmaz.sigmaz - h.sigmax (h=1)
+
+set term png
+set output "fig_ene_sizedep.png"
+
+set xlabel "1/L^2"
+set ylabel "E"
+set key bottom at graph 0.8,0.05
+
+set xrange [0:]
+
+Eexact=-1.2732395447351623 / 4.0
+c=0.5
+v=0.5
+coeff=pi/6
+
+p \
+"< grep 'L k energy:' ../dat/dat_L* | sed 's/.*L k energy://g' | awk '$2==0{print $0}' | sort -g -k 1" u (1/$1**2):($3/$1/4.0) w p ti "", \
+Eexact, \
+Eexact-x*c*v*coeff w l ti "(E-c*v*coeff)/L^2 (c=0.5,v=0.5,coeff=pi/6)"

@@ -1,0 +1,37 @@
+## E: GS of \sum - Sz.Sz - H.Sx (H=1/2)
+## E=e/4, e: GS of \sum - sigmaz.sigmaz - h.sigmax (h=1)
+
+set term png
+set output "fig_ene_dispersion.png"
+
+set xlabel "q/(2*pi)"
+set ylabel "dE = E - L*Eexact"
+set key bottom at graph 0.9,0.05
+
+Eexact=-1.2732395447351623 / 4.0
+
+p \
+"< grep 'L k energy:' ../dat/dat_L3_*  | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "L=3", \
+"< grep 'L k energy:' ../dat/dat_L4_*  | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "4", \
+"< grep 'L k energy:' ../dat/dat_L5_*  | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "5", \
+"< grep 'L k energy:' ../dat/dat_L6_*  | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "6", \
+"< grep 'L k energy:' ../dat/dat_L7_*  | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "7", \
+"< grep 'L k energy:' ../dat/dat_L8_*  | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "8", \
+"< grep 'L k energy:' ../dat/dat_L9_*  | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "9", \
+"< grep 'L k energy:' ../dat/dat_L10_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "10", \
+"< grep 'L k energy:' ../dat/dat_L11_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "11", \
+"< grep 'L k energy:' ../dat/dat_L12_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "12", \
+"< grep 'L k energy:' ../dat/dat_L13_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "13", \
+"< grep 'L k energy:' ../dat/dat_L14_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "14", \
+"< grep 'L k energy:' ../dat/dat_L15_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "15", \
+"< grep 'L k energy:' ../dat/dat_L16_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "16", \
+"< grep 'L k energy:' ../dat/dat_L17_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "17", \
+"< grep 'L k energy:' ../dat/dat_L18_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "18", \
+"< grep 'L k energy:' ../dat/dat_L19_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "19", \
+"< grep 'L k energy:' ../dat/dat_L20_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "20", \
+"< grep 'L k energy:' ../dat/dat_L21_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "21", \
+"< grep 'L k energy:' ../dat/dat_L22_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "22", \
+"< grep 'L k energy:' ../dat/dat_L23_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "23", \
+"< grep 'L k energy:' ../dat/dat_L24_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "24", \
+"< grep 'L k energy:' ../dat/dat_L25_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "25", \
+1.0*sin((0.5*x)*(2.0*pi))
