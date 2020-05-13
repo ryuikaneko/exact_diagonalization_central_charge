@@ -12,7 +12,7 @@ from numba import jit
 
 def parse_args():
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('-L',metavar='L',dest='L',type=int,default=16,help='set L')
+    parser.add_argument('-L',metavar='L',dest='L',type=int,default=16,help='set L (>=3)')
     parser.add_argument('-momk',metavar='momk',dest='momk',type=int,default=0,help='set momk')
     return parser.parse_args()
 
@@ -221,7 +221,6 @@ def main():
     print()
 
     start = time.time()
-    end = time.time()
     print("# make interactions")
     Nbond = L
     list_site1 = np.array([i for i in range(Nbond)],dtype=np.int64)
@@ -233,7 +232,6 @@ def main():
     print()
 
     start = time.time()
-    end = time.time()
     print("# make Hamiltonian")
     expk = calc_exp(L,momk)
 #    Ham = make_hamiltonian(Nbond,list_site1,list_site2,Nrep,list_state,list_sqrtR,L,momk,expk)
@@ -245,17 +243,43 @@ def main():
     print()
 
     start = time.time()
-    end = time.time()
     print("# diag Hamiltonian")
-    Neig = 5
-#    ene,vec = scipy.linalg.eigh(Ham,eigvals=(0,min(Neig,Nrep-1)))
-#    ene,vec = scipy.sparse.linalg.eigsh(Ham,which='SA',k=min(Neig,Nrep-1))
-    ene = scipy.sparse.linalg.eigsh(Ham,which='SA',k=min(Neig,Nrep-1),return_eigenvectors=False)
-#    ene4 = 4.0*ene
-#    ene = np.sort(ene4)
-    ene = np.sort(ene)
+    Neig = 2
+#    Neig = 5
+##---- diagonalization smaller
+    if Nrep < 100:
+        print("# Nrep < 100: use scipy.linalg.eigh")
+        ene,vec = scipy.linalg.eigh(Ham.todense(),eigvals=(0,min(Neig,Nrep-1)))
+    else:
+##---- diagonalization larger
+## https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.eigsh.html
+##  'SA' : Smallest (algebraic) eigenvalues
+##   If return_eigenvectors is True, eigenvalues are sorted by algebraic value.
+##   If return_eigenvectors is False, eigenvalues are sorted by absolute value.
+##
+        print("# Nrep >= 100: use scipy.sparse.linalg.eigsh")
+##      ene,vec = scipy.sparse.linalg.eigsh(Ham,which='SA',k=min(Neig,Nrep-1))
+        ene = scipy.sparse.linalg.eigsh(Ham,which='SA',k=min(Neig,Nrep-1),return_eigenvectors=False)
+##---- when return_eigenvectors=True
+## https://stackoverflow.com/questions/8092920/sort-eigenvalues-and-associated-eigenvectors-after-using-numpy-linalg-eig-in-pyt
+## (ene and vec are sorted by algebraic value, but just in case, sort them)
+##
+##        idx = ene.argsort()[::-1] # reverse order
+#        idx = ene.argsort()
+#        ene = ene[idx]
+#        vec = vec[:,idx]
+##        print(ene)
+##        print(vec)
+##---- when return_eigenvectors=False
+##        print(ene) ## sorted by absolute value
+        ene = np.sort(ene)
+##        print(ene) ## sorted by algebraic value
+##---- Heisenberg spin: S -->\sigma
+#        ene = 4.0*ene
+##----
     end = time.time()
-    print ("L k energy:",L,momk,ene[0],ene[1],ene[2],ene[3],ene[4])
+#    print("L k energy:",L,momk,ene[0],ene[1],ene[2],ene[3],ene[4])
+    print("L k energy:",L,momk,ene[0],ene[1])
     print("# time:",end-start)
     print()
 
