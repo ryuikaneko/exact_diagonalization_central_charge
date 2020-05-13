@@ -133,34 +133,33 @@ def calc_exp(L,momk):
 def make_hamiltonian_child(Nbond,list_site1,list_site2,Nrep,list_state,list_sqrtR,L,momk,expk):
 #
 #---- FM TFIsing model (spin: \sigma)
-## sx.sx + sy.sy: #elements = Nrep*Nbond (not used in TFIsing)
 ## sz.sz:         #elements = Nrep*1 (diagonal elements)
 ## sx:            #elements = Nrep*L
 ##
-    listki = np.array([i for k in range(Nbond+1+L) for i in range(Nrep)],dtype=np.int64)
-    loc = np.zeros((Nbond+1+L)*Nrep,dtype=np.int64)
-    elemnt = np.zeros((Nbond+1+L)*Nrep,dtype=np.complex128)
+    listki = np.array([i for k in range(1+L) for i in range(Nrep)],dtype=np.int64)
+    loc = np.zeros((1+L)*Nrep,dtype=np.int64)
+    elemnt = np.zeros((1+L)*Nrep,dtype=np.complex128)
 #    Ham = np.zeros((Nrep,Nrep),dtype=complex)
     for a in range(Nrep):
         sa = list_state[a]
         for i in range(Nbond): ## Ising (- \sigma^z \sigma^z)
             i1 = list_site1[i]
             i2 = list_site2[i]
-            loc[Nbond*Nrep+a] = a
+            loc[a] = a
             if get_spin(sa,i1) == get_spin(sa,i2):
 #                Ham[a,a] -= 1.0
-                elemnt[Nbond*Nrep+a] -= 1.0
+                elemnt[a] -= 1.0
             else:
 #                Ham[a,a] += 1.0
-                elemnt[Nbond*Nrep+a] += 1.0
+                elemnt[a] += 1.0
         for i in range(L): ## Transverse field (- \sigma^x = -2 S^x = - S^+ - S^-)
             bb = flip_1spin(sa,i)
             sb, exponent = find_representative(bb,L)
             b = find_state_2(sb,list_state,Nrep)
             if b>=0:
 #                Ham[a,b] -= list_sqrtR[a]/list_sqrtR[b]*expk[exponent]
-                elemnt[(Nbond+1+i)*Nrep+a] -= list_sqrtR[a]/list_sqrtR[b]*expk[exponent]
-                loc[(Nbond+1+i)*Nrep+a] = b
+                elemnt[(1+i)*Nrep+a] -= list_sqrtR[a]/list_sqrtR[b]*expk[exponent]
+                loc[(1+i)*Nrep+a] = b
 #---- end of FM TFIsing model (spin: \sigma)
 #
 ##---- AF Heisenberg model (spin: S = \sigma / 2)
