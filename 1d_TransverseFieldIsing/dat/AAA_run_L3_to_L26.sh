@@ -4,7 +4,7 @@ prog=../src/no_eigvec.py
 #prog=../src/no_eigvec_no_matrix.py
 
 for L in \
-`seq 3 25`
+`seq 3 26`
 do
 
 for momk in \
