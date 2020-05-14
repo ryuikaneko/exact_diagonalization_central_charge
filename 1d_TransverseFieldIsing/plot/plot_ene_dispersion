@@ -6,7 +6,7 @@ set output "fig_ene_dispersion.png"
 
 set xlabel "q/(2*pi)"
 set ylabel "dE = E - L*Eexact"
-set key bottom at graph 0.9,0.05
+set key bottom at graph 0.95,0.04
 
 Eexact=-1.2732395447351623 / 4.0
 
@@ -34,4 +34,5 @@ p \
 "< grep 'L k energy:' ../dat/dat_L23_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "23", \
 "< grep 'L k energy:' ../dat/dat_L24_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "24", \
 "< grep 'L k energy:' ../dat/dat_L25_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "25", \
+"< grep 'L k energy:' ../dat/dat_L26_* | sed 's/.*L k energy://g'" u ($2/$1):($3/4.0-$1*Eexact) w p ti "26", \
 1.0*sin((0.5*x)*(2.0*pi))
